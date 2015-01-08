@@ -1,8 +1,8 @@
 # Boxcar notifier
 
 These scripts are used to send <a href=http://boxcar.io>Boxcar</a> notifications from the command line. They allow for notifications to be sent to specific
-users and groups that are managed with a ```.user``` and a ```.group``` file documented below. The scripts should run on any
-Linux/OSX machine. The only dependency is curl.
+users and groups that are managed with a ```.user``` and a ```.group``` file documented below. These scripts should run on any
+Linux/OSX machine, the only dependency is curl.
 
 
 ##Installation##
