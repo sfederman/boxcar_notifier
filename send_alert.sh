@@ -120,7 +120,7 @@ user_alert() {
 		echo "UserID $userid not found."
 		return
 	fi
-	$send_alert -a "$ACCESS_TOKEN" -t "$title" -l "$long_message" -s "$sound" -n "$source_name" -i "icon_url" -o "$open_url"
+	$send_alert -a "$ACCESS_TOKEN" -t "$title" -l "$long_message" -s "$sound" -n "$source_name" -i "$icon_url" -o "$open_url"
 }
 
 if [[ ! $title ]]
