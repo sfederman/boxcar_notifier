@@ -9,7 +9,7 @@ Linux/OSX machine, the only dependency is curl.
 
 ```git clone https://github.com/sfederman/boxcar_notifier.git```
 
-Set the below variables within ```send_alert.sh```.
+Set the below variables within ```.config```.
 
 ```
 #This parameter specifies the directory containing the .user and .group file.
