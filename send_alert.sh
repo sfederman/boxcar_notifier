@@ -12,12 +12,12 @@ boxcar_config_dir="/Users/sfederman/.boxcar"
 send_alert="/Users/sfederman/boxcar_notifier/send_alert_simple.sh"
 
 # If .config file exists, use it to override defaults
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-if [[ -e .config ]]
+if [[ -e $DIR/.config ]]
 then
-	source .config
+	source $DIR/.config
 fi
-
 bold=$(tput bold)
 normal=$(tput sgr0)
 host=$(hostname)
