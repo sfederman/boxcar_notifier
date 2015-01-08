@@ -31,7 +31,7 @@ if [[ $HELP -eq 1  ||  $# -lt 1 ]]
 then
 	cat <<USAGE
 
-${bold}Boxcar notifier${normal}
+${bold}$scriptname${normal}
 
 This program will send a Boxcar notification to any user/device. See 
 http://help.boxcar.io/knowledgebase/articles/306788-how-to-send-a-notification-to-boxcar-users 
@@ -102,7 +102,6 @@ then
 		echo "$ACCESS_TOKEN_FILE is not a readable file."
 		exit
 	fi
-fi
 elif [[ ! $ACCESS_TOKEN ]]
 then
 	echo "You must submit either an Access token (-a) or an Access token file (-f)."
