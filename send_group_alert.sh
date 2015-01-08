@@ -158,13 +158,11 @@ then
 elif [[ $groupid ]]
 then
 	ACCESS_TOKEN_LIST=$(groupid_to_userid $groupid)
-	echo $ACCESS_TOKEN_LIST
 	IFS=","
 
 	for i in $ACCESS_TOKEN_LIST
 	do
 		user=$(echo "$i" | tr -d ' ')
 		user_alert $user
-		echo -e "$user\t$ACCESS_TOKEN"
 	done
 fi

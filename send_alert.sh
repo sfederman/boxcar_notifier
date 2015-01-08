@@ -132,7 +132,6 @@ curl -d "user_credentials=$ACCESS_TOKEN" \
 	-d "notification[long_message]=$long_message" \
 	-d "notification[sound]=$sound" \
 	-d "notification[source_name]=$source_name" \
-	-d "notification[icon_url]=$icon_url" ﻿\
-	-d "notification[open_url]=$open_url" ﻿\
+	-d "notification[icon_url]=$icon_url" \
+	-d "notification[open_url]=$open_url" \
 	https://new.boxcar.io/api/notifications
-
