@@ -18,16 +18,14 @@ optspec=":ha:f:t:l:s:n:i:o:u:g:"
 while getopts "$optspec" option; do
 	case "${option}" in
 		h) HELP=1;;
-		a) ACCESS_TOKEN=${OPTARG};;
-		f) ACCESS_TOKEN_FILE=${OPTARG};;
+		u) userid=${OPTARG};;
+		g) groupid=${OPTARG};;
 		t) title=${OPTARG};;
 		l) long_message=${OPTARG};;
 		s) sound=${OPTARG};;
 		n) source_name=${OPTARG};;
 		i) icon_url=${OPTARG};;
 		o) open_url=${OPTARG};;
-		u) userid=${OPTARG};;
-		g) groupid=${OPTARG};;
 
 		:)	echo "Option -$OPTARG requires an argument." >&2
 			exit 1
@@ -49,15 +47,13 @@ ${bold}Command Line Switches:${normal}
 
 	-h	Show this help & ignore all other switches
 
-	-a	Specify access token
+	-u	Specify userid to alert
 	
-		This is where you pass your access token. Your access token can be found 
-		in Boxcar global setting pane. It is a string composed of letters and numbers. 
-		Do not confuse it with your Boxcar email address.
+		Specifies a userid (from .user file) to send alert
 
-	-f	Specify access token file
+	-u	Specify groupid to alert
 	
-		This is where you pass the file containing the access token.
+		Specifies a groupid (from .group file) to send alert
 
 	-t	Specify title
 
