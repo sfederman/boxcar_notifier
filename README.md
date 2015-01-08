@@ -9,13 +9,18 @@ files section.
 
 Send Boxcar notification to userid 1.
 ```
-send_group_alert.sh -u 1 -t "Title" -l "This is an <B>HTML</B> message sent to a user."
+send_alert.sh -u 1 -t "Title" -l "This is an <B>HTML</B> message sent to a user."
 ```
 Send Boxcar notification to groupid G1.
 ```
-send_group_alert.sh -g G1 -t "Title" -l "This is an <B>HTML</B> message sent to a group."
+send_alert.sh -g G1 -t "Title" -l "This is an <B>HTML</B> message sent to a group."
 ```
 
+Send Boxcar alert without setting up users and groups.
+
+```
+send_alert_simple.sh -f ~/.boxcar/.boxcartoken -t "Title" -l "This is an <B>HTML</B> message."
+```
 <h2>Config files</h2>
 
 <h3>.user file</h3>

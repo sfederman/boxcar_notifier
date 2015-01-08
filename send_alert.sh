@@ -9,7 +9,7 @@
 boxcar_config_dir="/Users/sfederman/.boxcar"
 
 #send_alert specifies location of send_alert.sh
-send_alert="/Users/sfederman/boxcar_notifier/send_alert.sh"
+send_alert="/Users/sfederman/boxcar_notifier/send_alert_simple.sh"
 
 bold=$(tput bold)
 normal=$(tput sgr0)
