@@ -4,6 +4,18 @@ These scripts are used to send Boxcar notifications. They allow for notification
 user defined userids and groupids that are managed with a .user and .group file documented within the Config
 files section.
 
+<h2>Setup</h2>
+
+Set the below variables within ```send_alert.sh.```
+
+```
+#This parameter specifies the directory containing the .user and .group file.
+boxcar_config_dir="/Users/sfederman/.boxcar"
+
+#send_alert specifies location of send_alert.sh
+send_alert="/Users/sfederman/boxcar_notifier/send_alert_simple.sh"
+```
+
 <h2>Usage</h2>
 
 
