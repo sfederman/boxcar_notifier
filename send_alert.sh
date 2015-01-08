@@ -120,6 +120,11 @@ then
 	exit
 fi
 
+if [[ ! $source_name ]]
+then
+	source_name=$host
+fi
+
 curl -d "user_credentials=$ACCESS_TOKEN" \
 	-d "notification[title]=$title" \
 	-d "notification[long_message]=$long_message" \
