@@ -3,7 +3,7 @@
 These scripts are used to send <a href=http://boxcar.io>Boxcar</a> notifications. They allow for notifications to be sent to specific
 user defined userids and groupids that are managed with a ```.user``` and a ```.group``` file documented below.
 
-<h2>Installation</h2>
+##Installation##
 
 ```git clone https://github.com/sfederman/boxcar_notifier.git```
 
@@ -16,9 +16,9 @@ boxcar_config_dir="/Users/sfederman/.boxcar"
 #send_alert specifies location of send_alert.sh
 send_alert="/Users/sfederman/boxcar_notifier/send_alert_simple.sh"
 ```
-<h3>Config files</h3>
+####Config files####
 
-<h4>.user file</h4>
+**.user file**
 
 ```
 #UserID:UserName:Device Name:ACCESS_TOKEN
@@ -39,7 +39,7 @@ Currently, the only relevant portion is the UserID and ACCESS_TOKEN in the .user
 devicename are ignored and used only for tracking purposes.
 The userid can be any unique identifier, and must start at the beginning of the line.
 
-<h4>.group file</h4>
+**.group file**
 
 ```
 #GroupID:Group Name:UserID (csv)
@@ -58,7 +58,7 @@ groupid can be any unique identifier, and must start at the beginning of the lin
 uses G1, G2, etc... to distinguish from userids, but this is not strictly necessary. The UserID is a comma
 separated list of UserIDs from the .user file.
 
-<h2>Usage</h2>
+##Usage##
 
 
 Send Boxcar notification to userid 1.
