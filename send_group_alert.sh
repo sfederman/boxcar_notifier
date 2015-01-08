@@ -2,32 +2,30 @@
 
 # Boxcar notifier script
 # adopted from: 
-#	http://help.boxcar.io/knowledgebase/articles/306788-how-to-send-a-notification-to-boxcar-users
+# http://help.boxcar.io/knowledgebase/articles/306788-how-to-send-a-notification-to-boxcar-users
 # Scot Federman
 
 #This parameter specifies the directory containing the .user and .group file. They should be in the following format:
 
 #.user file
 #UserID:User Name:Device Type:ACCESS_TOKEN
-# 1:userid1:device_name:ACCESS_TOKEN
-# 2:userid2:device_name:ACCESS_TOKEN
+#1:userid1:device_name:ACCESS_TOKEN
+#2:userid2:device_name:ACCESS_TOKEN
 
 #.group file
 #GroupID:Group Name:UserID (csv)
-# G1:groupname:1, 2
+#G1:groupname:1, 2
 
 # Currently, the only relevant portion is the userid and ACCESS_TOKEN in the .user file. The username and devicename are currently 
 # ignored and used only for tracking purposes.
-# The userid can be any unique identifier.
+# The userid can be any unique identifier, and must start at the beginning of the line.
 
 # Within the .group file, the groupname is currently ignored, and is only used for tracking purposes. The groupid can be any 
-# unique identifier. I'm using G# to distinguish from userids, but this is not strictly necessary. The UserID is a 
-# comma separated list of UserIDs from the .user file.
-
+# unique identifier, and must start at the beginning of the line. I'm using G# to distinguish from userids, but this is not 
+# strictly necessary. The UserID is a comma separated list of UserIDs from the .user file.
 
 boxcar_config_dir="/Users/sfederman/.boxcar"
 send_alert="/Users/sfederman/boxcar_notifier/send_alert.sh"
-
 
 bold=$(tput bold)
 normal=$(tput sgr0)
