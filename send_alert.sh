@@ -1,6 +1,8 @@
 #!/bin/bash
 
 # Boxcar notifier script
+# adopted from: 
+#	http://help.boxcar.io/knowledgebase/articles/306788-how-to-send-a-notification-to-boxcar-users
 # Scot Federman
 
 bold=$(tput bold)
