@@ -5,6 +5,26 @@
 #	http://help.boxcar.io/knowledgebase/articles/306788-how-to-send-a-notification-to-boxcar-users
 # Scot Federman
 
+#This parameter specifies the directory containing the .user and .group file. They should be in the following format:
+
+#.user file
+#UserID:User Name:Device Type:ACCESS_TOKEN
+# 1:userid1:device_name:ACCESS_TOKEN
+# 2:userid2:device_name:ACCESS_TOKEN
+
+#.group file
+#GroupID:Group Name:UserID (csv)
+# G1:groupname:1, 2
+
+# Currently, the only relevant portion is the userid and ACCESS_TOKEN in the .user file. The username and devicename are currently 
+# ignored and used only for tracking purposes.
+# The userid can be any unique identifier.
+
+# Within the .group file, the groupname is currently ignored, and is only used for tracking purposes. The groupid can be any 
+# unique identifier. I'm using G# to distinguish from userids, but this is not strictly necessary. The UserID is a 
+# comma separated list of UserIDs from the .user file.
+
+
 boxcar_config_dir="/Users/sfederman/.boxcar"
 send_alert="/Users/sfederman/boxcar_notifier/send_alert.sh"
 
@@ -107,6 +127,18 @@ groupid_to_userid() {
 	echo $(grep ^$groupid $boxcar_config_dir/.group | awk -F: '{print $3}')
 }
 
+user_alert() {
+	userid=$1
+	ACCESS_TOKEN=$(userid_to_token $userid)
+	if [[ ! $ACCESS_TOKEN ]]
+	then
+		echo "UserID $userid not found."
+		return
+	fi
+	$send_alert -a "$ACCESS_TOKEN" -t "$title" -l "$long_message" -s "$sound" -n "$source_name" -i "icon_url" -o "$open_url"
+# 	echo $ACCESS_TOKEN
+}
+
 if [[ ! $title ]]
 then
 	echo "You must submit a title (-t)."
@@ -138,14 +170,7 @@ then
 	:
 elif [[ $userid ]]
 then
-	ACCESS_TOKEN=$(userid_to_token $userid)
-	if [[ ! $ACCESS_TOKEN ]]
-	then
-		echo "UserID $userid not found."
-		exit
-	fi
-	$send_alert -a "$ACCESS_TOKEN" -t "$title" -l "$long_message" -s "$sound" -n "$source_name" -i "icon_url" -o "$open_url"
-	echo $ACCESS_TOKEN
+	user_alert $userid
 elif [[ $groupid ]]
 then
 	ACCESS_TOKEN_LIST=$(groupid_to_userid $groupid)
@@ -155,8 +180,7 @@ then
 	for i in $ACCESS_TOKEN_LIST
 	do
 		user=$(echo "$i" | tr -d ' ')
-		ACCESS_TOKEN=$(userid_to_token $user)
+		user_alert $user
 		echo -e "$user\t$ACCESS_TOKEN"
-		$send_alert -a "$ACCESS_TOKEN" -t "$title" -l "$long_message" -s "$sound" -n "$source_name" -i "icon_url" -o "$open_url"
 	done
 fi
