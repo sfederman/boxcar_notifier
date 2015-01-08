@@ -27,7 +27,6 @@ send_alert="/Users/sfederman/boxcar_notifier/send_alert_simple.sh"
 3:Charlie Smith:iPhone:ACCESS_TOKEN
 4:Keyser Soze:iPhone:ACCESS_TOKEN
 ```
-<center>
 
 Field | Use|
 ----- | ---
@@ -36,7 +35,6 @@ UserName|Unused by scripts, useful for tracking
 DeviceName|Unused by scripts, useful for tracking
 ACCESS_TOKEN|Boxcar access token
 
-</center>
 Currently, the only relevant portion is the UserID and ACCESS_TOKEN in the .user file. The username and
 devicename are ignored and used only for tracking purposes.
 The userid can be any unique identifier, and must start at the beginning of the line.
@@ -47,9 +45,7 @@ The userid can be any unique identifier, and must start at the beginning of the 
 #GroupID:Group Name:UserID (csv)
 G1:Frederica:1,2
 G2:Everyone:1,2,3,4
-
 ```
-<center>
 
 Field | Use|
 ----- | ---
@@ -57,7 +53,6 @@ GroupID|Unique Identifier
 GroupName|Unused by scripts, useful for tracking
 UserID|Comma Separated List of UserIDs from .user file
 
-</center>
 Within the .group file, the groupname is currently ignored, and is only used for tracking purposes. The
 groupid can be any unique identifier, and must start at the beginning of the line. The default .group file
 uses G1, G2, etc... to distinguish from userids, but this is not strictly necessary. The UserID is a comma
