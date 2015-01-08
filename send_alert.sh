@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Boxcar notifier script
-# adopted from: 
+# adopted from:
 # http://help.boxcar.io/knowledgebase/articles/306788-how-to-send-a-notification-to-boxcar-users
 # Scot Federman
 
@@ -41,8 +41,8 @@ then
 
 ${bold}$scriptname${normal}
 
-This program will send a Boxcar notification to any user/device. See 
-http://help.boxcar.io/knowledgebase/articles/306788-how-to-send-a-notification-to-boxcar-users 
+This program will send a Boxcar notification to any user/device. See
+http://help.boxcar.io/knowledgebase/articles/306788-how-to-send-a-notification-to-boxcar-users
 for further details.
 
 ${bold}Command Line Switches:${normal}
@@ -50,44 +50,44 @@ ${bold}Command Line Switches:${normal}
 	-h	Show this help & ignore all other switches
 
 	-u	Specify userid to alert
-	
+
 		Specifies a userid (from .user file) to send alert
 
 	-u	Specify groupid to alert
-	
+
 		Specifies a groupid (from .group file) to send alert
 
 	-t	Specify title
 
-		This parameter will contain the content of the alert and the title of the 
+		This parameter will contain the content of the alert and the title of the
 		notification in Boxcar. Max size is 255 chars.
-		
+
 	-l	Specify long message
 
-		This is where you place the content of the notification itself. It can be 
+		This is where you place the content of the notification itself. It can be
 		either text or HTML. Max size is 4kb.
 
 	-s	Specify sound (optional)
 
-		This is where you define the sound you want to play on your device. As a 
-		default, the general sound is used. General sound typically defaults to 
-		silent, but if you changed it, you can force the notification to be silent 
-		with the "no-sound" sound name.	
+		This is where you define the sound you want to play on your device. As a
+		default, the general sound is used. General sound typically defaults to
+		silent, but if you changed it, you can force the notification to be silent
+		with the "no-sound" sound name.
 
 	-n	Specify source name (optional)
 
 		This is a short source name to show in inbox. Default is "Custom notification".
-	
+
 	-i	Specify icon url (optional)
 
-		This is where you define the icon you want to be displayed within the 
+		This is where you define the icon you want to be displayed within the
 		application inbox.
-			
+
 	-o	Specify open url (optional)
 
-		If defined, Boxcar will redirect you to this url when you open the notification 
-		from the Notification Center. It can be a http link like  
-		http://maps.google.com/maps?q=cupertino or an inapp link 
+		If defined, Boxcar will redirect you to this url when you open the notification
+		from the Notification Center. It can be a http link like
+		http://maps.google.com/maps?q=cupertino or an inapp link
 		like twitter:///user?screen_name=vutheara﻿﻿
 
 ${bold}Usage:${normal}
