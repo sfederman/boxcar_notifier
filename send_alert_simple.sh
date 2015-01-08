@@ -2,26 +2,20 @@
 
 # Boxcar notifier script
 # adopted from: 
-# http://help.boxcar.io/knowledgebase/articles/306788-how-to-send-a-notification-to-boxcar-users
+#	http://help.boxcar.io/knowledgebase/articles/306788-how-to-send-a-notification-to-boxcar-users
 # Scot Federman
-
-#This parameter specifies the directory containing the .user and .group file.
-boxcar_config_dir="/Users/sfederman/.boxcar"
-
-#send_alert specifies location of send_alert.sh
-send_alert="/Users/sfederman/boxcar_notifier/send_alert.sh"
 
 bold=$(tput bold)
 normal=$(tput sgr0)
 host=$(hostname)
 scriptname=${0##*/}
 
-optspec=":ha:f:t:l:s:n:i:o:u:g:"
+optspec=":ha:f:t:l:s:n:i:o:"
 while getopts "$optspec" option; do
 	case "${option}" in
 		h) HELP=1;;
-		u) userid=${OPTARG};;
-		g) groupid=${OPTARG};;
+		a) ACCESS_TOKEN=${OPTARG};;
+		f) ACCESS_TOKEN_FILE=${OPTARG};;
 		t) title=${OPTARG};;
 		l) long_message=${OPTARG};;
 		s) sound=${OPTARG};;
@@ -49,13 +43,15 @@ ${bold}Command Line Switches:${normal}
 
 	-h	Show this help & ignore all other switches
 
-	-u	Specify userid to alert
+	-a	Specify access token
 	
-		Specifies a userid (from .user file) to send alert
+		This is where you pass your access token. Your access token can be found 
+		in Boxcar global setting pane. It is a string composed of letters and numbers. 
+		Do not confuse it with your Boxcar email address.
 
-	-u	Specify groupid to alert
+	-f	Specify access token file
 	
-		Specifies a groupid (from .group file) to send alert
+		This is where you pass the file containing the access token.
 
 	-t	Specify title
 
@@ -92,36 +88,27 @@ ${bold}Command Line Switches:${normal}
 
 ${bold}Usage:${normal}
 
-	Send Boxcar notification to a userid 1.
-		$scriptname -u 1 -t "Title" -l "This is an <B>HTML</B> message."
-
-	Send Boxcar notification to a groupid G1.
-		$scriptname -g G1 -t "Title" -l "This is an <B>HTML</B> message."
+	Send Boxcar notification.
+		$scriptname -f ~/.boxcar/.boxcartoken -t "Title" -l "This is an <B>HTML</B> message."
 
 USAGE
 	exit
 fi
 
-userid_to_token() {
-	userid=$1
-	echo $(grep ^$userid $boxcar_config_dir/.user | awk -F: '{print $4}')
-}
-
-groupid_to_userid() {
-	groupid=$1
-	echo $(grep ^$groupid $boxcar_config_dir/.group | awk -F: '{print $3}')
-}
-
-user_alert() {
-	userid=$1
-	ACCESS_TOKEN=$(userid_to_token $userid)
-	if [[ ! $ACCESS_TOKEN ]]
+if [[ $ACCESS_TOKEN_FILE ]]
+then
+	if [[ -r $ACCESS_TOKEN_FILE ]]
 	then
-		echo "UserID $userid not found."
-		return
+		ACCESS_TOKEN=$(cat $ACCESS_TOKEN_FILE)
+	else
+		echo "$ACCESS_TOKEN_FILE is not a readable file."
+		exit
 	fi
-	$send_alert -a "$ACCESS_TOKEN" -t "$title" -l "$long_message" -s "$sound" -n "$source_name" -i "icon_url" -o "$open_url"
-}
+elif [[ ! $ACCESS_TOKEN ]]
+then
+	echo "You must submit either an Access token (-a) or an Access token file (-f)."
+	exit
+fi
 
 if [[ ! $title ]]
 then
@@ -140,29 +127,11 @@ then
 	source_name=$host
 fi
 
-if [[ $ACCESS_TOKEN_FILE ]]
-then
-	if [[ -r $ACCESS_TOKEN_FILE ]]
-	then
-		ACCESS_TOKEN=$(cat $ACCESS_TOKEN_FILE)
-	else
-		echo "$ACCESS_TOKEN_FILE is not a readable file."
-		exit
-	fi
-elif [[ $ACCESS_TOKEN ]]
-then
-	:
-elif [[ $userid ]]
-then
-	user_alert $userid
-elif [[ $groupid ]]
-then
-	ACCESS_TOKEN_LIST=$(groupid_to_userid $groupid)
-	IFS=","
-
-	for i in $ACCESS_TOKEN_LIST
-	do
-		user=$(echo "$i" | tr -d ' ')
-		user_alert $user
-	done
-fi
+curl -d "user_credentials=$ACCESS_TOKEN" \
+	-d "notification[title]=$title" \
+	-d "notification[long_message]=$long_message" \
+	-d "notification[sound]=$sound" \
+	-d "notification[source_name]=$source_name" \
+	-d "notification[icon_url]=$icon_url" \
+	-d "notification[open_url]=$open_url" \
+	https://new.boxcar.io/api/notifications
