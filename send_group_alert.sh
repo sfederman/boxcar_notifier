@@ -14,7 +14,7 @@
 
 #.group file
 #GroupID:Group Name:UserID (csv)
-#G1:groupname:1, 2
+#G1:groupname1:1, 2
 
 # Currently, the only relevant portion is the userid and ACCESS_TOKEN in the .user file. The username and devicename are currently 
 # ignored and used only for tracking purposes.
