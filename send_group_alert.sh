@@ -92,8 +92,11 @@ ${bold}Command Line Switches:${normal}
 
 ${bold}Usage:${normal}
 
-	Send Boxcar notification.
-		$scriptname -f ~/.boxcar/.boxcartoken -t "Title" -l "This is an <B>HTML</B> message."
+	Send Boxcar notification to a userid 1.
+		$scriptname -u 1 -t "Title" -l "This is an <B>HTML</B> message."
+
+	Send Boxcar notification to a groupid G1.
+		$scriptname -g G1 -t "Title" -l "This is an <B>HTML</B> message."
 
 USAGE
 	exit
@@ -118,7 +121,6 @@ user_alert() {
 		return
 	fi
 	$send_alert -a "$ACCESS_TOKEN" -t "$title" -l "$long_message" -s "$sound" -n "$source_name" -i "icon_url" -o "$open_url"
-# 	echo $ACCESS_TOKEN
 }
 
 if [[ ! $title ]]
