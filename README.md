@@ -1,11 +1,13 @@
-# boxcar_notifier
+# Boxcar notifier
 
 These scripts are used to send <a href=http://boxcar.io>Boxcar</a> notifications. They allow for notifications to be sent to specific
-user defined userids and groupids that are managed with a ```.user``` and ```.group``` file documented below.
+user defined userids and groupids that are managed with a ```.user``` and a ```.group``` file documented below.
 
-<h2>Setup</h2>
+<h2>Installation</h2>
 
-Set the below variables within ```send_alert.sh.```
+```git clone https://github.com/sfederman/boxcar_notifier.git```
+
+Set the below variables within ```send_alert.sh```.
 
 ```
 #This parameter specifies the directory containing the .user and .group file.
