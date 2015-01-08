@@ -1,3 +1,5 @@
-#UserID:User Name:Device Type:Members UID
-1:userid1:device_name:ACCESS_TOKEN
-2:userid2:device_name:ACCESS_TOKEN
+#UserID:UserName:DeviceName:ACCESS_TOKEN
+1:Frederica Doe:iPhone:ACCESS_TOKEN
+2:Frederica Doe:iPad:ACCESS_TOKEN
+3:Charlie Smith:iPhone:ACCESS_TOKEN
+4:Keyser Soze:iPhone:ACCESS_TOKEN
