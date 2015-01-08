@@ -104,12 +104,12 @@ fi
 
 userid_to_token() {
 	userid=$1
-	echo $(grep ^$userid $boxcar_config_dir/.user | awk -F: '{print $4}')
+	echo $(grep "^$userid:" $boxcar_config_dir/.user | awk -F: '{print $4}')
 }
 
 groupid_to_userid() {
 	groupid=$1
-	echo $(grep ^$groupid $boxcar_config_dir/.group | awk -F: '{print $3}')
+	echo $(grep "^$groupid:" $boxcar_config_dir/.group | awk -F: '{print $3}')
 }
 
 user_alert() {
