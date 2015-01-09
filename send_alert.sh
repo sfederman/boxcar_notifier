@@ -16,7 +16,7 @@ DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 if [[ -e $DIR/.config ]]
 then
-	source $DIR/.config
+	source "$DIR/.config"
 fi
 bold=$(tput bold)
 normal=$(tput sgr0)
@@ -111,17 +111,17 @@ fi
 
 userid_to_token() {
 	userid=$1
-	echo $(grep "^$userid:" $boxcar_config_dir/.user | awk -F: '{print $4}')
+	grep "^$userid:" "$boxcar_config_dir/.user" | awk -F: '{print $4}'
 }
 
 groupid_to_userid() {
 	groupid=$1
-	echo $(grep "^$groupid:" $boxcar_config_dir/.group | awk -F: '{print $3}')
+	grep "^$groupid:" "$boxcar_config_dir/.group" | awk -F: '{print $3}'
 }
 
 user_alert() {
 	userid=$1
-	ACCESS_TOKEN=$(userid_to_token $userid)
+	ACCESS_TOKEN=$(userid_to_token "$userid")
 	if [[ ! $ACCESS_TOKEN ]]
 	then
 		echo "UserID $userid not found."
@@ -151,7 +151,7 @@ if [[ $ACCESS_TOKEN_FILE ]]
 then
 	if [[ -r $ACCESS_TOKEN_FILE ]]
 	then
-		ACCESS_TOKEN=$(cat $ACCESS_TOKEN_FILE)
+		ACCESS_TOKEN=$(cat "$ACCESS_TOKEN_FILE")
 	else
 		echo "$ACCESS_TOKEN_FILE is not a readable file."
 		exit
@@ -161,15 +161,15 @@ then
 	:
 elif [[ $userid ]]
 then
-	user_alert $userid
+	user_alert "$userid"
 elif [[ $groupid ]]
 then
-	ACCESS_TOKEN_LIST=$(groupid_to_userid $groupid)
+	ACCESS_TOKEN_LIST=$(groupid_to_userid "$groupid")
 	IFS=","
 
 	for i in $ACCESS_TOKEN_LIST
 	do
 		user=$(echo "$i" | tr -d ' ')
-		user_alert $user
+		user_alert "$user"
 	done
 fi

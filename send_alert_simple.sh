@@ -99,7 +99,7 @@ if [[ $ACCESS_TOKEN_FILE ]]
 then
 	if [[ -r $ACCESS_TOKEN_FILE ]]
 	then
-		ACCESS_TOKEN=$(cat $ACCESS_TOKEN_FILE)
+		ACCESS_TOKEN=$(cat "$ACCESS_TOKEN_FILE")
 	else
 		echo "$ACCESS_TOKEN_FILE is not a readable file."
 		exit
