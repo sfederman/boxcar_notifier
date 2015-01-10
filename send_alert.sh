@@ -23,7 +23,7 @@ normal=$(tput sgr0)
 host=$(hostname)
 scriptname=${0##*/}
 
-optspec=":ha:f:t:l:s:n:i:o:u:g:"
+optspec=":ht:l:s:n:i:o:u:g:d"
 while getopts "$optspec" option; do
 	case "${option}" in
 		h) HELP=1;;
@@ -35,6 +35,7 @@ while getopts "$optspec" option; do
 		n) source_name=${OPTARG};;
 		i) icon_url=${OPTARG};;
 		o) open_url=${OPTARG};;
+		d) DRY_RUN=1;;
 
 		:)	echo "Option -$OPTARG requires an argument." >&2
 			exit 1
@@ -56,11 +57,13 @@ ${bold}Command Line Switches:${normal}
 
 	-h	Show this help & ignore all other switches
 
+	-d	Dry run. Show users that would be alerted, but do not send alert.
+
 	-u	Specify userid to alert
 
 		Specifies a userid (from .user file) to send alert
 
-	-u	Specify groupid to alert
+	-g	Specify groupid to alert
 
 		Specifies a groupid (from .group file) to send alert
 
@@ -119,6 +122,11 @@ groupid_to_userid() {
 	grep "^$groupid:" "$boxcar_config_dir/.group" | awk -F: '{print $3}'
 }
 
+userid_to_name_device() {
+	userid=$1
+	grep "^$userid:" "$boxcar_config_dir/.user" | awk -F: '{print $2":"$3}'
+}
+
 user_alert() {
 	userid=$1
 	ACCESS_TOKEN=$(userid_to_token "$userid")
@@ -127,7 +135,13 @@ user_alert() {
 		echo "UserID $userid not found."
 		return
 	fi
-	$send_alert -a "$ACCESS_TOKEN" -t "$title" -l "$long_message" -s "$sound" -n "$source_name" -i "$icon_url" -o "$open_url"
+	if [[ $DRY_RUN ]]
+	then
+		name_device=$(userid_to_name_device "$userid")
+		echo "$userid:$name_device:$ACCESS_TOKEN"
+	else
+		$send_alert -a "$ACCESS_TOKEN" -t "$title" -l "$long_message" -s "$sound" -n "$source_name" -i "$icon_url" -o "$open_url"
+	fi
 }
 
 if [[ ! $title ]]
@@ -165,11 +179,18 @@ then
 elif [[ $groupid ]]
 then
 	ACCESS_TOKEN_LIST=$(groupid_to_userid "$groupid")
-	IFS=","
+	if [[ ! $ACCESS_TOKEN_LIST ]]
+	then
+		echo "GroupID $groupid not found."
+		exit
+	else
 
-	for i in $ACCESS_TOKEN_LIST
-	do
-		user=$(echo "$i" | tr -d ' ')
-		user_alert "$user"
-	done
+		IFS=","
+
+		for i in $ACCESS_TOKEN_LIST
+		do
+			user=$(echo "$i" | tr -d ' ')
+			user_alert "$user"
+		done
+	fi
 fi
