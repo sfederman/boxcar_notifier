@@ -11,6 +11,8 @@ Linux/OSX machine, the only dependency is curl.
 
 Set the below variables within ```.config```.
 
+
+
 ```
 #This parameter specifies the directory containing the .user and .group file.
 boxcar_config_dir="/Users/sfederman/.boxcar"
@@ -63,6 +65,7 @@ separated list of ```UserID``` from the .user file.
 
 ##Usage##
 
+Type ```send_alert.sh -h``` to show all command-line options.
 
 Send Boxcar notification to UserID 1.
 ```
@@ -73,8 +76,17 @@ Send Boxcar notification to GroupID G1.
 send_alert.sh -g G1 -t 'Title' -l 'This is an <B>HTML</B> message sent to a group.
 ```
 
+Send Boxcar notification to GroupID G1. ```-d``` allows for a dry run to verify recipients before sending.
+```
+send_alert.sh -d -g G1 -t 'Title' -l 'This is an <B>HTML</B> message sent to a group.
+```
+
 Send Boxcar alert without setting up ```.user``` and ```.group``` files.
 
 ```
 send_alert_simple.sh -f ~/.boxcar/.boxcartoken -t 'Title' -l 'This is an <B>HTML</B> message.''
+```
+
+```
+send_alert_simple.sh -a BOXCAR_TOKEN -t 'Title' -l 'This is an <B>HTML</B> message.''
 ```
