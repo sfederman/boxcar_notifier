@@ -14,7 +14,7 @@ send_alert="/Users/sfederman/boxcar_notifier/send_alert_simple.sh"
 # If .config file exists, use it to override defaults
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-if [[ -e $DIR/.config ]]
+if [[ -e "$DIR/.config" ]]
 then
 	source "$DIR/.config"
 fi
